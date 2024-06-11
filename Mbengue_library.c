@@ -56,13 +56,13 @@ void inserer(file *simba)
 {
 	int choix, choix_perso;
 
-	client *contenu = malloc(sizeof(*contenu)); // cette instruction permet de creer une variable de type
+	client *contenu = malloc(sizeof(*contenu));
 
 	char commande1[7], test[7];
 	printf("\t\t\tBienvenue dans le restaurant KASSU\n\n\n");
 	contenu->cliente.entrer.quantite1 = 0;
 	contenu->cliente.entrer.quantite2 = 0;
-	contenu->cliente.resistance.quantite1 = 0; // pour initialiser la quantites de chaque palets a 0
+	contenu->cliente.resistance.quantite1 = 0;
 	contenu->cliente.resistance.quantite2 = 0;
 	contenu->cliente.dessert.quantite1 = 0;
 	contenu->cliente.dessert.quantite2 = 0;
@@ -73,7 +73,7 @@ void inserer(file *simba)
 		printf("\t****************************\n");
 		printf("\t*          1.ENTRER        *\n");
 		printf("\t****************************\n");
-		printf("\t*          2.RESISTANCE    *\n"); // menu principale: qui contient toutes les categories
+		printf("\t*          2.RESISTANCE    *\n");
 		printf("\t****************************\n");
 		printf("\t*          3.DESSERT       *\n");
 		printf("\t****************************\n");
@@ -85,7 +85,7 @@ void inserer(file *simba)
 			{
 				printf("\t*******************************************\n");
 				printf("\t*       Menu entrer        |       prix   *\n");
-				printf("\t*******************************************\n"); // si il choisi 1 on entre dansle premmier if
+				printf("\t*******************************************\n");
 				printf("\t*  1.croissant jambon      |       2000   *\n");
 				printf("\t*******************************************\n");
 				printf("\t*  2.pain omelette         |       1500   *\n");
@@ -123,7 +123,7 @@ void inserer(file *simba)
 					printf("\t*******************************************\n");
 					printf("\t*       Menu resistance    |      prix    *\n");
 					printf("\t*******************************************\n");
-					printf("\t*        1.PAELLA          |      20000   *\n"); // si le client choisi le menu resistance  elle nous montre le
+					printf("\t*        1.PAELLA          |      20000   *\n");
 					printf("\t*******************************************\n");
 					printf("\t*        2.THIEBOU GUANAR  |      15000   *\n");
 					printf("\t*******************************************\n");
@@ -158,7 +158,7 @@ void inserer(file *simba)
 					printf("\t*******************************************\n");
 					printf("\t*       Menu Dessert     |       prix     *\n");
 					printf("\t*******************************************\n");
-					printf("\t*  1.Milk shake          |       5000     *\n"); // quand le client choisi le menu 3 a l acceuil on le redirige vers les desserts
+					printf("\t*  1.Milk shake          |       5000     *\n");
 					printf("\t*******************************************\n");
 					printf("\t*  2.tiramisu            |      10000     *\n");
 					printf("\t*******************************************\n");
@@ -195,35 +195,31 @@ void inserer(file *simba)
 	} while (strcmp(test, "oui") == 0);
 
 	if (simba->taille == 0)
-	{							// verifie si la file est vide et ajoute la commande
-		simba->debut = contenu; // au debut
+	{
+		simba->debut = contenu;
 	}
 	else
-	{ // si la file  nest on ajoute la commande a la queue.
+	{
 		simba->fin->suivant = contenu;
 	}
 
 	simba->fin = contenu;
-	contenu->suivant = NULL; // la queue est pointe toujours vers null
+	contenu->suivant = NULL;
 	simba->taille++;
 }
 void affichage(file *tema)
 {
 
-	// pour copier le contenu de la file dans une nouvelle file pour ne pas perdre sont contenu
-
 	client *tor = malloc(sizeof(*tor));
-	tor = tema->debut; // les clients vont etre servi par ordre de passage
+	tor = tema->debut;
 	int i = 1;
 	while (tor != NULL)
-	{ // c'est a dire premier arrrivé premier servi.
+	{
 
 		printf("\t\t COMMANDE du client numero %d\n", i);
 		printf("********************************************************************\n");
 		printf("*       MENU            |     QUANTITE        |     PRIX (cfa)     *\n");
 		int prix_total = 0;
-
-		// Pour l affichage on verifie si le les plats commander par leur nom et ensuite on les affiches
 
 		if (strcmp(tor->cliente.resistance.nom_plat1, "PAELLA") == 0)
 		{
@@ -267,6 +263,5 @@ void affichage(file *tema)
 		printf("patienter 5min en attendant que nous preparons votre commande       \n\n");
 		printf("KASSU vous remercie pour votre confiance\n\n");
 		i++;
-		tor = tor->suivant; // la file prend le prochain client
+		tor = tor->suivant;
 	}
-}
